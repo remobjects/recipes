@@ -7,12 +7,10 @@
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
     <Mode>Island</Mode>
     <RootNamespace>sagui</RootNamespace>
-    <ImportSearchPaths>.;.\x86_64\include</ImportSearchPaths>
+    <ImportSearchPaths>.</ImportSearchPaths>
     <ImportCodeGen>Oxygene</ImportCodeGen>
     <KnownConditionalDefines>NEW_DEFINE</KnownConditionalDefines>
-    <ImportLinkNames>libsagui-2.dll</ImportLinkNames>
-    <ImportLibraryPaths>.\x86_64\bin</ImportLibraryPaths>
-    <Architecture>x86_64</Architecture>
+    <Architecture>i386;x86_64</Architecture>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>.\Bin\Debug</OutputPath>
@@ -26,6 +24,9 @@
     <Reference Include="rtl" />
     <ImportVirtualFile Include="stdio.h"/>
     <ImportVirtualFile Include="string.h"/>
+    <SymbolMapping Include="libsagui-2.dll">
+        <SymbolNames>*</SymbolNames>
+    </SymbolMapping>
   </ItemGroup>
   <ItemGroup></ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\RemObjects Software\Elements\RemObjects.Elements.Island.Windows.targets" />
