@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectGuid>{BC12454D-423E-4A10-BCF1-C549DA8D52F4}</ProjectGuid>
+    <OutputType>Import</OutputType>
+    <AssemblyName>libui</AssemblyName>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <Mode>Island</Mode>
+    <RootNamespace>libui</RootNamespace>
+    <ImportSearchPaths>.</ImportSearchPaths>
+    <ImportCodeGen>Oxygene</ImportCodeGen>
+    <KnownConditionalDefines>NEW_DEFINE</KnownConditionalDefines>
+    <Architecture>i386;x86_64</Architecture>
+    <ConditionalDefines>LONG_PTR=intptr_t</ConditionalDefines>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>.\Bin\Debug</OutputPath>
+    <ConditionalDefines>NEW_DEFINE</ConditionalDefines>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>.\Bin\Release</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+     <ImportFile Include="ui.h"/>
+     <ImportIndirectFile Include="ui_windows.h"/>
+    <Reference Include="rtl" />
+    <SymbolMapping Include="libui.dll">
+        <SymbolNames>*</SymbolNames>
+    </SymbolMapping>
+  </ItemGroup>
+  <ItemGroup></ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\RemObjects Software\Elements\RemObjects.Elements.Island.Windows.targets" />
+</Project>
