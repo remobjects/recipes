@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectGuid>{BA07E348-1D49-454F-AE2D-AB6AB8821204}</ProjectGuid>
+    <OutputType>Import</OutputType>
+    <AssemblyName>sagui</AssemblyName>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <Mode>Island</Mode>
+    <RootNamespace>sagui</RootNamespace>
+    <ImportSearchPaths>.;.\x86\include</ImportSearchPaths>
+    <ImportCodeGen>Oxygene</ImportCodeGen>
+    <KnownConditionalDefines>NEW_DEFINE</KnownConditionalDefines>
+    <ImportLinkNames>libsagui-2.dll</ImportLinkNames>
+    <ImportLibraryPaths>.\x86\bin</ImportLibraryPaths>
+    <Architecture>i386</Architecture>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>.\Bin\Debug</OutputPath>
+    <ConditionalDefines>NEW_DEFINE</ConditionalDefines>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>.\Bin\Release</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+     <ImportFile Include="sagui.h"/>
+    <Reference Include="rtl" />
+    <ImportVirtualFile Include="stdio.h"/>
+    <ImportVirtualFile Include="string.h"/>
+  </ItemGroup>
+  <ItemGroup></ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\RemObjects Software\Elements\RemObjects.Elements.Island.Windows.targets" />
+</Project>
