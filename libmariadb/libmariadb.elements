@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectGuid>{245343AB-0AA9-41F8-ADC3-75393904E9E9}</ProjectGuid>
+    <OutputType>Import</OutputType>
+    <AssemblyName>libmariadb</AssemblyName>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <Mode>Island</Mode>
+    <RootNamespace>libmariadb</RootNamespace>
+    <ImportSearchPaths>.</ImportSearchPaths>
+    <ImportCodeGen>Oxygene</ImportCodeGen>
+    <Architecture>all</Architecture>
+    <ConditionalDefines>LONG_PTR=intptr_t</ConditionalDefines>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>.\Bin\Debug</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>.\Bin\Release</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Island.Windows' ">
+    <Mode>Island</Mode>
+    <SubMode>Windows</SubMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Island.Linux' ">
+    <Mode>Island</Mode>
+    <SubMode>Linux</SubMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Island.Darwin.macOS' ">
+    <Mode>Island</Mode>
+    <SubMode>Darwin</SubMode>
+    <SDK>macOS</SDK>
+  </PropertyGroup>
+  <ItemGroup>
+     <ImportFile Include="mysql.h"/>
+     <ImportIndirectFile Include="*.h"/>
+    <Reference Include="rtl" />
+    <SymbolMapping Include="libmariadb.dll">
+        <SymbolNames>*</SymbolNames>
+        <Target>Island.Windows</Target>
+    </SymbolMapping>
+    <SymbolMapping Include="libmariadb.so">
+        <SymbolNames>*</SymbolNames>
+        <Target>Island.Linux</Target>
+    </SymbolMapping>
+    <SymbolMapping Include="libmariadb.dylib">
+        <SymbolNames>*</SymbolNames>
+        <Target>Island.Darwin.macOS</Target>
+    </SymbolMapping>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\RemObjects Software\Elements\RemObjects.Elements.targets" />
+</Project>
