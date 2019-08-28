@@ -9,7 +9,7 @@
     <RootNamespace>libpq</RootNamespace>
     <ImportSearchPaths>.</ImportSearchPaths>
     <ImportCodeGen>Oxygene</ImportCodeGen>
-    <Architecture>i386;x86_64</Architecture>
+    <Architecture>all</Architecture>
     <ConditionalDefines>LONG_PTR=intptr_t</ConditionalDefines>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -18,6 +18,19 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>.\Bin\Release</OutputPath>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Island.Windows' ">
+    <Mode>Island</Mode>
+    <SubMode>Windows</SubMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Island.Linux' ">
+    <Mode>Island</Mode>
+    <SubMode>Linux</SubMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Island.Darwin.macOS' ">
+    <Mode>Island</Mode>
+    <SubMode>Darwin</SubMode>
+    <SDK>macOS</SDK>
+  </PropertyGroup>
   <ItemGroup>
      <ImportFile Include="libpq-fe.h"/>
      <ImportIndirectFile Include="pg_config_ext.h"/>
@@ -25,7 +38,16 @@
     <Reference Include="rtl" />
     <SymbolMapping Include="libpq.dll">
         <SymbolNames>*</SymbolNames>
+        <Target>Island.Windows</Target>
+    </SymbolMapping>
+    <SymbolMapping Include="libpq.so">
+        <SymbolNames>*</SymbolNames>
+        <Target>Island.Linux</Target>
+    </SymbolMapping>
+    <SymbolMapping Include="libpq.dylib">
+        <SymbolNames>*</SymbolNames>
+        <Target>Island.Darwin.macOS</Target>
     </SymbolMapping>
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\RemObjects Software\Elements\RemObjects.Elements.Island.Windows.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\RemObjects Software\Elements\RemObjects.Elements.targets" />
 </Project>
