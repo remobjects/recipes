@@ -131,6 +131,7 @@ end;
     method ExecuteNonQuery: Integer; override;
     begin
       if fCommand = nil then Prepare;
+      BindParameters;
 
       var lStep := sqlite3_step(fCommand);
 
@@ -148,6 +149,11 @@ end;
       if fCommand <> nil then raise new SQLiteException('Already prepared!');
       var lData := Command.ToCharArray;
       fOwner.Throw(sqlite3_prepare16(fOwner.fHandle, @lData[0], lData.Length * 2, @fCommand, nil));
+
+    end;
+
+    method BindParameters;
+    begin
       for i: Integer := 0 to Parameters.Count -1 do begin
         var n := sqlite3_bind_parameter_index(fCommand, if Parameters[i].Name.StartsWith('@') then Parameters[i].Name else '@'+Parameters[i].Name);
         if n = 0 then raise new SQLiteException('No parameter in query for '+Parameters[i].Name);
@@ -183,6 +189,7 @@ end;
     method ExecuteReader: DbDataReader; override;
     begin
       if fCommand = nil then Prepare;
+      BindParameters;
       exit new SQLiteDataReader(self);
     end;
   end;
