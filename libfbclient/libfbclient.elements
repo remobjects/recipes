@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectGuid>{47B8ABD5-5E4D-48B9-A94C-651F09395264}</ProjectGuid>
+    <OutputType>Import</OutputType>
+    <AssemblyName>libfbclient</AssemblyName>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <Mode>Island</Mode>
+    <RootNamespace>libfbclient</RootNamespace>
+    <ImportSearchPaths>.</ImportSearchPaths>
+    <ImportCodeGen>Oxygene</ImportCodeGen>
+    <Architecture>all</Architecture>
+    <ConditionalDefines>LONG_PTR=intptr_t</ConditionalDefines>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>.\Bin\Debug</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>.\Bin\Release</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Island.Windows' ">
+    <Mode>Island</Mode>
+    <SubMode>Windows</SubMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Island.Linux' ">
+    <Mode>Island</Mode>
+    <SubMode>Linux</SubMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Island.Darwin.macOS' ">
+    <Mode>Island</Mode>
+    <SubMode>Darwin</SubMode>
+    <SDK>macOS</SDK>
+  </PropertyGroup>
+  <ItemGroup>
+     <ImportFile Include="ib_util.h"/>
+     <ImportFile Include="ibase.h"/>
+     <ImportFile Include="iberror.h"/>
+    <Reference Include="rtl" />
+    <SymbolMapping Include="fbclient.dll">
+        <SymbolNames>*</SymbolNames>
+        <Target>Island.Windows</Target>
+    </SymbolMapping>
+    <SymbolMapping Include="libfbclient.so">
+        <SymbolNames>*</SymbolNames>
+        <Target>Island.Linux</Target>
+    </SymbolMapping>
+    <SymbolMapping Include="libfbclient.dylib">
+        <SymbolNames>*</SymbolNames>
+        <Target>Island.Darwin.macOS</Target>
+    </SymbolMapping>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\RemObjects Software\Elements\RemObjects.Elements.targets" />
+</Project>
