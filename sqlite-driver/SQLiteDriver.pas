@@ -171,6 +171,7 @@ end;
             typeOf(UInt64): sqlite3_bind_int64(fCommand, n, UInt64(Parameters[i].Value));
             typeOf(IntPtr): sqlite3_bind_int64(fCommand, n, IntPtr(Parameters[i].Value));
             typeOf(UIntPtr): sqlite3_bind_int64(fCommand, n, UIntPtr(Parameters[i].Value));
+            typeOf(DateTime): sqlite3_bind_int64(fCommand, n, DateTime(Parameters[i].Value).Ticks);
 
             typeOf(Single): sqlite3_bind_double(fCommand, n, Single(Parameters[i].Value));
             typeOf(Double): sqlite3_bind_double(fCommand, n, Double(Parameters[i].Value));

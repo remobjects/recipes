@@ -79,7 +79,7 @@ type
     character = 1042, //char(length), blank-padded string, fixed storage length
     character_varying = 1043, //varchar(length), non-blank-padded string, variable storage length
     date = 1082, //date
-    timewithouttimezone = 1083, //time of day
+    time_without_timezone = 1083, //time of day
     timestamp_without_timezone = 1114, //date and time
     timestamp_withtimezone = 1184, //date and time with time zone
     interval = 1186, //@ <number> <units>, time interval
@@ -383,6 +383,12 @@ type
             ^Byte(@lRes)[7] := lVal[0];
             exit lRes;
           end;
+        PostgreSQLOid.timestamp_without_timezone,
+        PostgreSQLOid.timestamp_withtimezone: begin 
+          var lValue := ( Int64(lVal[0]) shl 56) or ( Int64(lVal[1]) shl 48) or ( Int64(lVal[2]) shl 40)or ( Int64(lVal[3]) shl 32) or( Int64(lVal[4]) shl 24) or ( Int64(lVal[5]) shl 16) or ( Int64(lVal[6]) shl 8)or ( Int64(lVal[7]) shl 0);
+          exit new DateTime(lValue * 10  + new DateTime(2000, 1, 1).Ticks);
+        end;
+        
       /*
         abstime = 702, //absolute, limited-range date and time (Unix system time)
         reltime = 703, //relative, limited-range time interval (Unix delta time)
@@ -391,9 +397,7 @@ type
         character = 1042, //char(length), blank-padded string, fixed storage length
         character_varying = 1043, //varchar(length), non-blank-padded string, variable storage length
         date = 1082, //date
-        timewithouttimezone = 1083, //time of day
-        timestamp_without_timezone = 1114, //date and time
-        timestamp_withtimezone = 1184, //date and time with time zone
+        time_without_timezone = 1083, //time of day
         interval = 1186, //@ <number> <units>, time interval
         time_with_time_zone = 1266, //time of day with time zone
         bit = 1560, //fixed-length bit string
