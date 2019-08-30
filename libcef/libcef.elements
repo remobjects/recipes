@@ -10,7 +10,8 @@
     <ImportSearchPaths>.</ImportSearchPaths>
     <ImportCodeGen>Oxygene</ImportCodeGen>
     <Architecture>all</Architecture>
-    <ConditionalDefines>LONG_PTR=intptr_t;UINT_MAX=0xffffffff </ConditionalDefines>
+    <ConditionalDefines>LONG_PTR=intptr_t;UINT_MAX=0xffffffff</ConditionalDefines>
+    <ImportForceIncludes>include/base/cef_build.h=cefoverrides.h</ImportForceIncludes>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>.\Bin\Debug</OutputPath>
@@ -32,7 +33,12 @@
     <SDK>macOS</SDK>
   </PropertyGroup>
   <ItemGroup>
+     <ImportFile Include="include/base/cef_build.h"/>
      <ImportFile Include="include/capi/*.h"/>
+     <ImportFile Include="include/internal/cef_types_linux.h"/>
+     <ImportFile Include="include/internal/cef_types_mac.h"/>
+     <ImportFile Include="include/internal/cef_types_win.h"/>
+     
      <ImportIndirectFile Include="include/*.h"/>
      <ImportIndirectFile Include="include/base/*.h"/>
      <ImportIndirectFile Include="include/internal/*.h"/>
