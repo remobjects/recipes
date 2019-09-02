@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectGuid>{E6E63BB2-6637-4A52-8720-6576162CF966}</ProjectGuid>
+    <OutputType>Import</OutputType>
+    <AssemblyName>libmbedtls</AssemblyName>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <Mode>Island</Mode>
+    <RootNamespace>libmbedtls</RootNamespace>
+    <ImportSearchPaths>.;includes</ImportSearchPaths>
+    <ImportCodeGen>Oxygene</ImportCodeGen>
+    <Architecture>all</Architecture>
+    <ConditionalDefines>LONG_PTR=intptr_t</ConditionalDefines>
+    <ImportBlacklist>check_config.h</ImportBlacklist>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>.\Bin\Debug</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>.\Bin\Release</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Island.Windows' ">
+    <Mode>Island</Mode>
+    <SubMode>Windows</SubMode>
+    
+    <ImportLinkNames>mbedTLS.a</ImportLinkNames>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Island.Linux' ">
+    <Mode>Island</Mode>
+    <SubMode>Linux</SubMode>
+    
+    <ImportLinkNames>mbedTLS.a</ImportLinkNames>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Island.Darwin.macOS' ">
+    <Mode>Island</Mode>
+    <SubMode>Darwin</SubMode>
+    <SDK>macOS</SDK>
+    
+    <ImportLinkNames>mbedTLS.a</ImportLinkNames>
+  </PropertyGroup>
+  <ItemGroup>
+     <ImportFile Include="*.h"/>
+     
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\RemObjects Software\Elements\RemObjects.Elements.targets" />
+</Project>
