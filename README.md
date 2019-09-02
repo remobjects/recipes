@@ -1,6 +1,6 @@
 # Overview
 
-Recipes is a project with import definitions for different open source projects with instructions on how to import them.
+Recipes is a project with import definitions for different open source projects with instructions on how to import them in the lib\* directories. Bindings for the libraries, if present are in the non-lib directories.
 
 # License
 
