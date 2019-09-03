@@ -22,25 +22,40 @@
   <PropertyGroup Condition=" '$(Target)' == 'Island.Windows' ">
     <Mode>Island</Mode>
     <SubMode>Windows</SubMode>
-    
-    <ImportLinkNames>mbedTLS.a</ImportLinkNames>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Target)' == 'Island.Linux' ">
     <Mode>Island</Mode>
     <SubMode>Linux</SubMode>
-    
-    <ImportLinkNames>mbedTLS.a</ImportLinkNames>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Target)' == 'Island.Darwin.macOS' ">
     <Mode>Island</Mode>
     <SubMode>Darwin</SubMode>
     <SDK>macOS</SDK>
-    
-    <ImportLinkNames>mbedTLS.a</ImportLinkNames>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Island.Darwin.iOS' ">
+    <Mode>Island</Mode>
+    <SubMode>Darwin</SubMode>
+    <SDK>iOS</SDK>
+    <SupportUIKitForMac>True</SupportUIKitForMac>
   </PropertyGroup>
   <ItemGroup>
      <ImportFile Include="*.h"/>
-     
+     <ImportLinkLibrary Include="./Binaries/Windows/x86_64/mbedTLS.lib">
+     	<Target>Island.Windows</Target>
+     	<Private>True</Private>
+     </ImportLinkLibrary>
+     <ImportLinkLibrary Include="./Binaries/Linux/x86_64/mbedTLS.lib">
+     	<Target>Island.Linux</Target>
+     	<Private>True</Private>
+     </ImportLinkLibrary>
+     <ImportLinkLibrary Include="./Binaries/Darwin/macOS/x86_64/mbedTLS.lib">
+     	<Target>Island.Darwin.macOS</Target>
+     	<Private>True</Private>
+     </ImportLinkLibrary>
+     <ImportLinkLibrary Include="./Binaries/Darwin/iOS/arm64/mbedTLS.lib">
+     	<Target>Island.Darwin.iOS</Target>
+     	<Private>True</Private>
+     </ImportLinkLibrary>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\RemObjects Software\Elements\RemObjects.Elements.targets" />
 </Project>
