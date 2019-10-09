@@ -838,6 +838,7 @@ method nk_gdi_render(clear: __struct_nk_color); public;
 begin
   var cmd: ^__struct_nk_command;
   var memory_dc: HDC := gdi.memory_dc;
+  SelectClipRgn(memory_dc, nil);
   SelectObject(memory_dc, GetStockObject(DC_PEN));
   SelectObject(memory_dc, GetStockObject(DC_BRUSH));
   nk_gdi_clear(memory_dc, clear);
