@@ -1,0 +1,18 @@
+{
+  "files": [ "nuklear.h", "nuklear_gdi.h"],
+  "outpath": ".",
+  "language":  "oxygene",
+  "namespace": "Nuklear",
+  "defines": [  "NK_IMPLEMENTATION","NK_INCLUDE_FIXED_TYPES","NK_INCLUDE_DEFAULT_ALLOCATOR", "NK_INCLUDE_FONT_BAKING", "NK_INCLUDE_DEFAULT_FONT", "uintptr_t=UIntPtr", "intptr_t=IntPtr" ,"NK_API=extern", "NK_GDI_IMPLEMENTATION", "NULL=nil", "NK_MEMSET=memset", "NK_MEMCPY=memcpy"],
+  "uses":  ["rtl"],
+"knowntypes": ["LPSTR", "GRADIENT_RECT", "GRADIENT_TRIANGLE", "TRIVERTEX", "POINT"],
+  "includes": {
+    "stddef.h": "", 
+"stdint.h": "", 
+"stdlib.h":"",
+"assert.h":"",
+"windows.h":"#define nk_foreach(c, ctx) for((c) = nk__begin(ctx); (c) != 0; (c) = nk__next(ctx,c))\r\n#define FALSE 0\r\n#define TRUE 1\r\n#define LOWORD(a) ((WORD)(a))\r\n#define HIWORD(a) ((WORD)(((DWORD)(a) >> 16) & 0xFFFF))\r\n",
+"malloc.h":""
+  },
+  "includePaths": ["." ]
+}
