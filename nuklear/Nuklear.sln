@@ -1,0 +1,20 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# RemObjects Fire
+Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "Nuklear", "Nuklear.elements", "{E3624822-694A-4CA9-B5EE-8801720A3BB8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AnyCPU = Debug|AnyCPU
+		Release|AnyCPU = Release|AnyCPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E3624822-694A-4CA9-B5EE-8801720A3BB8}.Debug|AnyCPU.ActiveCfg = Debug|AnyCPU
+		{E3624822-694A-4CA9-B5EE-8801720A3BB8}.Debug|AnyCPU.Build.0 = Debug|AnyCPU
+		{E3624822-694A-4CA9-B5EE-8801720A3BB8}.Release|AnyCPU.ActiveCfg = Release|AnyCPU
+		{E3624822-694A-4CA9-B5EE-8801720A3BB8}.Release|AnyCPU.Build.0 = Release|AnyCPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

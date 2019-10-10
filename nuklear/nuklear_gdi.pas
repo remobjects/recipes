@@ -1,5 +1,6 @@
 ﻿namespace Nuklear;
 
+{$IF WINDOWS}
 // Automatically converted with FOxidizer; do not modify manually!
 
 {$CCOMPATIBILITY ON}
@@ -102,7 +103,7 @@ begin
     exit;
   end;
   hDCBits := CreateCompatibleDC(gdi.memory_dc);
-  GetObject(hbm, sizeOf(BITMAP), LPSTR((@bitmap)));
+  GetObject(hbm, sizeOf(bitmap), LPSTR((@bitmap)));
   SelectObject(hDCBits, hbm);
   StretchBlt(gdi.memory_dc, x, y, w, h, hDCBits, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
   DeleteDC(hDCBits);
@@ -493,7 +494,7 @@ begin
   if (Boolean(IsClipboardFormatAvailable(CF_UNICODETEXT)) and Boolean(OpenClipboard(nil))) then begin
     var mem: HGLOBAL := GetClipboardData(CF_UNICODETEXT);
     if mem then begin
-      var size: SIZE_T := (GlobalSize(mem) - 1);
+      var size: size_t := (GlobalSize(mem) - 1);
       if size then begin
         var wstr: LPCWSTR := LPCWSTR(GlobalLock(mem));
         if wstr then begin
@@ -1027,13 +1028,13 @@ type
   // * Nuklear - 1.32.0 - public domain
   //  * no warrenty implied; use at your own risk.
   //  * authored from 2015-2016 by Micha Mettke
-  //  
+  //
   //  * ==============================================================
   //  *
   //  *                              API
   //  *
   //  * ===============================================================
-  //  
+  //
   //  defined: NK_GDI_H_ ()
   //  defined: WIN32_LEAN_AND_MEAN ()
   //  defined: nk_foreach (c,ctx) for((c) = nk__begin(ctx); (c) != 0; (c) = nk__next(ctx,c))
@@ -1069,5 +1070,7 @@ type
     var ctx: __struct_nk_context; public;
 
   end;
+
+{$ENDIF}
 
 end.

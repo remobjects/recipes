@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProductVersion>3.5</ProductVersion>
+    <RootNamespace>Nuklear</RootNamespace>
+    <ProjectGuid>{E3624822-694A-4CA9-B5EE-8801720A3BB8}</ProjectGuid>
+    <OutputType>StaticLibrary</OutputType>
+    <AssemblyName>Nuklear</AssemblyName>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <Optimize>False</Optimize>
+    <OutputPath>.\Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;</DefineConstants>
+    <GenerateDebugInfo>True</GenerateDebugInfo>
+    <EnableAsserts>True</EnableAsserts>
+    <CpuType>anycpu</CpuType>
+    <EnableUnmanagedDebugging>False</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>.\Bin\Release</OutputPath>
+    <CpuType>anycpu</CpuType>
+    <EnableUnmanagedDebugging>False</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Windows' ">
+  	<Mode>Island</Mode>
+  	<SubMode>Windows</SubMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Linux' ">
+  	<Mode>Island</Mode>
+  	<SubMode>Linux</SubMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Darwin.macOS' ">
+  	<Mode>Island</Mode>
+  	<SubMode>Darwin</SubMode>
+  	<SDK>macOS</SDK>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="#" />
+    <Reference Include="CoreGraphics">
+    	<Target>Darwin.macOS</Target>
+    </Reference>
+    <Reference Include="CoreFoundation">
+    	<Target>Darwin.macOS</Target>
+    </Reference>
+    <Reference Include="Foundation">
+    	<Target>Darwin.macOS</Target>
+    </Reference>
+    <Reference Include="AppKit">
+    	<Target>Darwin.macOS</Target>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="nuklear_gdi.pas" />
+    <Compile Include="nuklear_style.pas" />
+    <Compile Include="nuklear_types.pas" />
+    <Compile Include="nuklear.pas" />
+    <Compile Include="nukelar_cg.pas" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\RemObjects Software\Elements\RemObjects.Elements.targets" />
+</Project>
