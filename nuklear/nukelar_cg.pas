@@ -18,120 +18,117 @@ type
 
 var gdi: anontype_17; public;
 
-method nk_create_image(image: ^__struct_nk_image; frame_buffer: ^Byte; width: Int32; height: Int32); public;
-begin
-  if (Boolean((Boolean((Boolean(image) and Boolean(frame_buffer))) and Boolean((width > 0)))) and Boolean((height > 0))) then begin
-    (image)^.w := width;
-    (image)^.h := height;
-    (image)^.region[0] := 0;
-    (image)^.region[1] := 0;
-    (image)^.region[2] := width;
-    (image)^.region[3] := height;
-    var row: INT := (((width * 3) + 3) and not 3);
-    var bi: BITMAPINFO := default(BITMAPINFO);
-    bi.bmiHeader.biSize := sizeOf(BITMAPINFOHEADER);
-    bi.bmiHeader.biWidth := width;
-    bi.bmiHeader.biHeight := height;
-    bi.bmiHeader.biPlanes := 1;
-    bi.bmiHeader.biBitCount := 24;
-    bi.bmiHeader.biCompression := BI_RGB;
-    bi.bmiHeader.biSizeImage := (row * height);
-    var lpBuf: LPBYTE;
-    var pb: LPBYTE := nil;
-    var hbm: CGImageRef := CreateDIBSection(nil, (@bi), DIB_RGB_COLORS, ^^Void((@lpBuf)), nil, 0);
-    pb := (lpBuf + (row * height));
-    var src: ^Byte := ^Byte(frame_buffer);
-    begin
-      // for loop: initializer
-      var v: Int32 := 0;
-      // for loop: compare
-      _looplabel0:;
-      if (v < height) then begin
-      end
-      else begin
-        goto _breaklabel0;
-      end;
-      // for loop: body
-      begin
-        pb := pb - row;
-        begin
-          // for loop: initializer
-          var i: Int32 := 0;
-          // for loop: compare
-          _looplabel2:;
-          if (i < row) then begin
-          end
-          else begin
-            goto _breaklabel2;
-          end;
-          // for loop: body
-          begin
-            pb[(i + 0)] := src[0];
-            pb[(i + 1)] := src[1];
-            pb[(i + 2)] := src[2];
-            src := src + 3;
-          end;
-          _continuelabel2:;
-          // for loop: increment/continue
-          i := i + 3;
-          goto _looplabel2;
-          // for loop: break
-          _breaklabel2:;
-        end;
-      end;
-      _continuelabel0:;
-      // for loop: increment/continue
-      v := v + 1;
-      goto _looplabel0;
-      // for loop: break
-      _breaklabel0:;
-    end;
-    SetDIBits(nil, hbm, 0, height, lpBuf, (@bi), DIB_RGB_COLORS);
-    (image)^.handle.ptr := hbm;
-  end;
-end;
+//method nk_create_image(image: ^__struct_nk_image; frame_buffer: ^Byte; width: Int32; height: Int32); public;
+//begin
+  //if (Boolean((Boolean((Boolean(image) and Boolean(frame_buffer))) and Boolean((width > 0)))) and Boolean((height > 0))) then begin
+    //(image)^.w := width;
+    //(image)^.h := height;
+    //(image)^.region[0] := 0;
+    //(image)^.region[1] := 0;
+    //(image)^.region[2] := width;
+    //(image)^.region[3] := height;
+    //var row: INT := (((width * 3) + 3) and not 3);
+    //var bi: BITMAPINFO := default(BITMAPINFO);
+    //bi.bmiHeader.biSize := sizeOf(BITMAPINFOHEADER);
+    //bi.bmiHeader.biWidth := width;
+    //bi.bmiHeader.biHeight := height;
+    //bi.bmiHeader.biPlanes := 1;
+    //bi.bmiHeader.biBitCount := 24;
+    //bi.bmiHeader.biCompression := BI_RGB;
+    //bi.bmiHeader.biSizeImage := (row * height);
+    //var lpBuf: LPBYTE;
+    //var pb: LPBYTE := nil;
+    //var hbm: CGImageRef := CreateDIBSection(nil, (@bi), DIB_RGB_COLORS, ^^Void((@lpBuf)), nil, 0);
+    //pb := (lpBuf + (row * height));
+    //var src: ^Byte := ^Byte(frame_buffer);
+    //begin
+      //// for loop: initializer
+      //var v: Int32 := 0;
+      //// for loop: compare
+      //_looplabel0:;
+      //if (v < height) then begin
+      //end
+      //else begin
+        //goto _breaklabel0;
+      //end;
+      //// for loop: body
+      //begin
+        //pb := pb - row;
+        //begin
+          //// for loop: initializer
+          //var i: Int32 := 0;
+          //// for loop: compare
+          //_looplabel2:;
+          //if (i < row) then begin
+          //end
+          //else begin
+            //goto _breaklabel2;
+          //end;
+          //// for loop: body
+          //begin
+            //pb[(i + 0)] := src[0];
+            //pb[(i + 1)] := src[1];
+            //pb[(i + 2)] := src[2];
+            //src := src + 3;
+          //end;
+          //_continuelabel2:;
+          //// for loop: increment/continue
+          //i := i + 3;
+          //goto _looplabel2;
+          //// for loop: break
+          //_breaklabel2:;
+        //end;
+      //end;
+      //_continuelabel0:;
+      //// for loop: increment/continue
+      //v := v + 1;
+      //goto _looplabel0;
+      //// for loop: break
+      //_breaklabel0:;
+    //end;
+    //SetDIBits(nil, hbm, 0, height, lpBuf, (@bi), DIB_RGB_COLORS);
+    //(image)^.handle.ptr := hbm;
+  //end;
+//end;
 
-method nk_delete_image(image: ^__struct_nk_image); public;
-begin
-  if (Boolean(image) and Boolean(((image)^.handle.id ≠ 0))) then begin
-    var hbm: CGImageRef := CGImageRef((image)^.handle.ptr);
-    CFRelease(hbm);
-    memset(image, 0, sizeOf(__struct_nk_image));
-  end;
-end;
+//method nk_delete_image(image: ^__struct_nk_image); public;
+//begin
+  //if (Boolean(image) and Boolean(((image)^.handle.id ≠ 0))) then begin
+    //var hbm: CGImageRef := CGImageRef((image)^.handle.ptr);
+    //CFRelease(hbm);
+    //memset(image, 0, sizeOf(__struct_nk_image));
+  //end;
+//end;
 
-method nk_cg_draw_image(x: Int16; y: Int16; w: UInt16; h: UInt16; img: __struct_nk_image; col: __struct_nk_color); public;
-begin
-  var hbm: CGImageRef := CGImageRef(img.handle.ptr);
-  var hDCBits: CGContextRef;
-  var bitmap: BITMAP;
-  if (Boolean(not Boolean(gdi.memory_dc)) or Boolean(not Boolean(hbm))) then begin
-    exit;
-  end;
-  hDCBits := CreateCompatibleDC(gdi.memory_dc);
-  GetObject(hbm, sizeOf(bitmap), LPSTR((@bitmap)));
-  SelectObject(hDCBits, hbm);
-  StretchBlt(gdi.memory_dc, x, y, w, h, hDCBits, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
-  CFRelease(hDCBits);
-end;
+//method nk_cg_draw_image(x: Int16; y: Int16; w: UInt16; h: UInt16; img: __struct_nk_image; col: __struct_nk_color); public;
+//begin
+  //var hbm: CGImageRef := CGImageRef(img.handle.ptr);
+  //var hDCBits: CGContextRef;
+  //var bitmap: BITMAP;
+  //if (Boolean(not Boolean(gdi.memory_dc)) or Boolean(not Boolean(hbm))) then begin
+    //exit;
+  //end;
+  //hDCBits := CreateCompatibleDC(gdi.memory_dc);
+
+  //GetObject(hbm, sizeOf(bitmap), LPSTR((@bitmap)));
+  //SelectObject(hDCBits, hbm);
+  //StretchBlt(gdi.memory_dc, x, y, w, h, hDCBits, 0, 0, bitmap.bmWidth, bitmap.bmHeight, SRCCOPY);
+  //CFRelease(hDCBits);
+//end;
 
 method convert_color(c: __struct_nk_color): CGColorRef; public;
 begin
-  result := CGColorCreateGenericRGB(nil, r/256.0, b/256.0, c/256.0);
+  result := CGColorCreateGenericRGB(c.r/256.0, c.b/256.0, c.b/256.0, c.a/256.0);
 end;
 
 method nk_cg_scissor(dc: CGContextRef; x: Single; y: Single; w: Single; h: Single); public;
 begin
-  SelectClipRgn(dc, nil);
-  IntersectClipRect(dc, Int32(x), Int32(y), Int32(((x + w) + 1)), Int32(((y + h) + 1)));
+  //SelectClipRgn(dc, nil);
+  //IntersectClipRect(dc, Int32(x), Int32(y), Int32(((x + w) + 1)), Int32(((y + h) + 1)));
 end;
 
 method nk_cg_stroke_line(dc: CGContextRef; x0: Int16; y0: Int16; x1: Int16; y1: Int16; line_thickness: UInt32; col: __struct_nk_color); public;
 begin
-  var color: CGColorRef := convert_color(col);
-  CGContextSetStrokeColorWithColor(dc, color);
-  CGContextSetLineWidth(dc, line_thickness);
-
   var color: CGColorRef := convert_color(col);
   CGContextSetStrokeColorWithColor(dc, color);
   CGContextSetLineWidth(dc, line_thickness);
@@ -150,11 +147,14 @@ begin
   var color: CGColorRef := convert_color(col);
   CGContextSetStrokeColorWithColor(dc, color);
   CGContextSetLineWidth(dc, line_thickness);
+  var rect := CGRectMake(x, y, (x + w), (y + h));
   if (r = 0) then begin
-    CGContextFillRect(dc, GCRectMake(x, y, (x + w), (y + h), r, r));
+    CGContextStrokeRect(dc, rect);
   end
   else begin
-    RoundRect(dc, x, y, (x + w), (y + h), r, r);
+    var path := __createRoundedCornerPath(rect, r);
+    CGContextStrokePath(path);
+    CFRelease(path);
   end;
 end;
 
@@ -162,57 +162,79 @@ method nk_cg_fill_rect(dc: CGContextRef; x: Int16; y: Int16; w: UInt16; h: UInt1
 begin
   var color: CGColorRef := convert_color(col);
   CGContextSetFillColorWithColor(dc, color);
+  var rect := CGRectMake(x, y, (x + w), (y + h));
   if (r = 0) then begin
-    CGContextFillRect(dc, GCRectMake(x, y, (x + w), (y + h), r, r));
+    CGContextFillRect(dc, rect);
   end
   else begin
-    RoundRect(dc, x, y, (x + w), (y + h), r, r);
+    var path := __createRoundedCornerPath(rect, r);
+    CGContextFillPath(path);
+    CFRelease(path);
   end;
 end;
 
-method nk_cg_set_vertexColor(tri: PTRIVERTEX; col: __struct_nk_color); public;
+method __createRoundedCornerPath(rect: CGRect; cornerRadius: CGFloat): CGMutablePathRef; unit;
 begin
-  (tri)^.Red := (col.r shl 8);
-  (tri)^.Green := (col.g shl 8);
-  (tri)^.Blue := (col.b shl 8);
-  (tri)^.Alpha := (255 shl 8);
+  var path: CGMutablePathRef := CGPathCreateMutable();
+  var topLeft: CGPoint := CGPointMake(rect.origin.x, rect.origin.y);
+  var topRight: CGPoint := CGPointMake(rect.origin.x + rect.size.width, rect.origin.y);
+  var bottomRight: CGPoint := CGPointMake(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height);
+  var bottomLeft: CGPoint := CGPointMake(rect.origin.x, rect.origin.y + rect.size.height);
+  CGPathMoveToPoint(path, nil, topLeft.x + cornerRadius, topLeft.y);
+  CGPathAddLineToPoint(path, nil, topRight.x - cornerRadius, topRight.y);
+  CGPathAddQuadCurveToPoint(path, nil, topRight.x, topRight.y, topRight.x, topRight.y + cornerRadius);
+  CGPathAddLineToPoint(path, nil, bottomRight.x, bottomRight.y - cornerRadius);
+  CGPathAddQuadCurveToPoint(path, nil, bottomRight.x, bottomRight.y, bottomRight.x - cornerRadius, bottomRight.y);
+  CGPathAddLineToPoint(path, nil, bottomLeft.x + cornerRadius, bottomLeft.y);
+  CGPathAddQuadCurveToPoint(path, nil, bottomLeft.x, bottomLeft.y, bottomLeft.x, bottomLeft.y - cornerRadius);
+  CGPathAddLineToPoint(path, nil, topLeft.x, topLeft.y + cornerRadius);
+  CGPathAddQuadCurveToPoint(path, nil, topLeft.x, topLeft.y, topLeft.x + cornerRadius, topLeft.y);
+  exit path;
 end;
+
+//method nk_cg_set_vertexColor(tri: PTRIVERTEX; col: __struct_nk_color); public;
+//begin
+  //(tri)^.Red := (col.r shl 8);
+  //(tri)^.Green := (col.g shl 8);
+  //(tri)^.Blue := (col.b shl 8);
+  //(tri)^.Alpha := (255 shl 8);
+//end;
 
 method nk_cg_rect_multi_color(dc: CGContextRef; x: Int16; y: Int16; w: UInt16; h: UInt16; left: __struct_nk_color; top: __struct_nk_color; right: __struct_nk_color; bottom: __struct_nk_color); public;
 begin
-  var alphaFunction: BLENDFUNCTION;
-  var gRect: GRADIENT_RECT;
-  var gTri: array[0..2 - 1] of GRADIENT_TRIANGLE;
-  var vt: array[0..4 - 1] of TRIVERTEX;
-  alphaFunction.BlendOp := AC_SRC_OVER;
-  alphaFunction.BlendFlags := 0;
-  alphaFunction.SourceConstantAlpha := 0;
-  alphaFunction.AlphaFormat := AC_SRC_ALPHA;
-  // TODO: This Case Needs Repair.
-  //  Top Left Corner
-  vt[0].x := x;
-  vt[0].y := y;
-  nk_cg_set_vertexColor((@vt[0]), left);
-  // Top Right Corner
-  vt[1].x := (x + w);
-  vt[1].y := y;
-  nk_cg_set_vertexColor((@vt[1]), top);
-  // Bottom Left Corner
-  vt[2].x := x;
-  vt[2].y := (y + h);
-  nk_cg_set_vertexColor((@vt[2]), right);
-  // Bottom Right Corner
-  vt[3].x := (x + w);
-  vt[3].y := (y + h);
-  nk_cg_set_vertexColor((@vt[3]), bottom);
-  gTri[0].Vertex1 := 0;
-  gTri[0].Vertex2 := 1;
-  gTri[0].Vertex3 := 2;
-  gTri[1].Vertex1 := 2;
-  gTri[1].Vertex2 := 1;
-  gTri[1].Vertex3 := 3;
-  GdiGradientFill(dc, vt, 4, gTri, 2, GRADIENT_FILL_TRIANGLE);
-  AlphaBlend(gdi.window_dc, x, y, (x + w), (y + h), gdi.memory_dc, x, y, (x + w), (y + h), alphaFunction);
+  //var alphaFunction: BLENDFUNCTION;
+  //var gRect: GRADIENT_RECT;
+  //var gTri: array[0..2 - 1] of GRADIENT_TRIANGLE;
+  //var vt: array[0..4 - 1] of TRIVERTEX;
+  //alphaFunction.BlendOp := AC_SRC_OVER;
+  //alphaFunction.BlendFlags := 0;
+  //alphaFunction.SourceConstantAlpha := 0;
+  //alphaFunction.AlphaFormat := AC_SRC_ALPHA;
+  //// TODO: This Case Needs Repair.
+  ////  Top Left Corner
+  //vt[0].x := x;
+  //vt[0].y := y;
+  //nk_cg_set_vertexColor((@vt[0]), left);
+  //// Top Right Corner
+  //vt[1].x := (x + w);
+  //vt[1].y := y;
+  //nk_cg_set_vertexColor((@vt[1]), top);
+  //// Bottom Left Corner
+  //vt[2].x := x;
+  //vt[2].y := (y + h);
+  //nk_cg_set_vertexColor((@vt[2]), right);
+  //// Bottom Right Corner
+  //vt[3].x := (x + w);
+  //vt[3].y := (y + h);
+  //nk_cg_set_vertexColor((@vt[3]), bottom);
+  //gTri[0].Vertex1 := 0;
+  //gTri[0].Vertex2 := 1;
+  //gTri[0].Vertex3 := 2;
+  //gTri[1].Vertex1 := 2;
+  //gTri[1].Vertex2 := 1;
+  //gTri[1].Vertex3 := 3;
+  //GdiGradientFill(dc, vt, 4, gTri, 2, GRADIENT_FILL_TRIANGLE);
+  //AlphaBlend(gdi.window_dc, x, y, (x + w), (y + h), gdi.memory_dc, x, y, (x + w), (y + h), alphaFunction);
 end;
 
 method nk_cg_fill_triangle(dc: CGContextRef; x0: Int16; y0: Int16; x1: Int16; y1: Int16; x2: Int16; y2: Int16; col: __struct_nk_color); public;
@@ -252,35 +274,22 @@ end;
 
 method nk_cg_fill_polygon(dc: CGContextRef; pnts: ^__struct_nk_vec2i; count: Int32; col: __struct_nk_color); public;
 begin
-  var i: Int32 := 0;
-  // defined: MAX_POINTS ()  64
-  var points: array[0..64 - 1] of Point;
-  var color: CGColorRef := convert_color(col);
-  CGContextSetFillColorWithColor(dc, color);
+  if (count > 0) then begin
 
-  begin
-    // for loop: initializer
-    i := 0;
-    // for loop: compare
-    _looplabel0:;
-    if (Boolean((i < count)) and Boolean((i < 64))) then begin
-    end
-    else begin
-      goto _breaklabel0;
-    end;
-    // for loop: body
-    begin
-      points[i].x := pnts[i].x;
-      points[i].y := pnts[i].y;
-    end;
-    _continuelabel0:;
-    // for loop: increment/continue
-    i := i + 1;
-    goto _looplabel0;
-    // for loop: break
-    _breaklabel0:;
+    var color: CGColorRef := convert_color(col);
+    CGContextSetFillColorWithColor(dc, color);
+
+    var path := CGPathCreateMutable();
+    CGPathMoveToPoint(dc, nil, pnts[0].x, pnts[0].y);
+    for i: Int32 := 1 to count-1 do
+      CGPathAddLineToPoint(path, nil, pnts[i].x, pnts[i].y);
+    CGPathAddLineToPoint(dc, nil, pnts[0].x, pnts[0].y);
+    //CGPathCloseSubpath(path);
+
+    //CGContextAddPath(dc, path);
+    CGContextFillPath(dc);
+    CFRelease(path);
   end;
-  Polygon(dc, points, i);
 end;
 
 method nk_cg_stroke_polygon(dc: CGContextRef; pnts: ^__struct_nk_vec2i; count: Int32; line_thickness: UInt16; col: __struct_nk_color); public;
@@ -344,33 +353,31 @@ begin
   CGContextSetStrokeColorWithColor(dc, color);
   CGContextSetLineWidth(dc, line_thickness);
 
-  //CGContextStrokePath(dc, path);
-  PolyBezier(dc, p, 4);
+  var path := CGPathCreateMutable();
+  CGPathMoveToPoint(path, nil, p1.x, p1.y);
+  CGPathAddCurveToPoint(path, nil, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y);
+
+  //CGContextAddPath(dc, path);
+  CGContextStrokePath(dc);
+  CFRelease(path);
 end;
 
-method nk_cg_draw_text(dc: CGContextRef; x: Int16; y: Int16; w: UInt16; h: UInt16; text: ^Byte; len: Int32; font: ^GdiFont; cbg: __struct_nk_color; cfg: __struct_nk_color); public;
+method nk_cg_draw_text(dc: CGContextRef; x: Int16; y: Int16; w: UInt16; h: UInt16; text: ^Byte; len: Int32; font: CGFontRef; cbg: __struct_nk_color; cfg: __struct_nk_color); public;
 begin
-  var wsize: Int32;
-  var wstr: ^WCHAR;
-  if (Boolean((Boolean(not Boolean(text)) or Boolean(not Boolean(font)))) or Boolean(not Boolean(len))) then begin
-    exit;
-  end;
-  wsize := MultiByteToWideChar(CP_UTF8, 0, text, len, nil, 0);
-  wstr := ^WCHAR(malloc((wsize * sizeOf(wchar_t))));
-  MultiByteToWideChar(CP_UTF8, 0, text, len, wstr, wsize);
-  SetBkColor(dc, convert_color(cbg));
+  var s := Encoding.UTF8.GetString(text, 0, len);
+  //SetBkColor(dc, convert_color(cbg));
   SetTextColor(dc, convert_color(cfg));
-  SelectObject(dc, (font)^.handle);
+  //SelectObject(dc, (font)^.handle);
+  //s.drawAtPoint(CGPointMake(x, y));
   ExtTextOutW(dc, x, y, ETO_OPAQUE, nil, wstr, wsize, nil);
-  free(wstr);
 end;
 
 method nk_cg_clear(dc: CGContextRef; col: __struct_nk_color); public;
 begin
   var color: CGColorRef := convert_color(col);
-  var rect: Rect := [0, 0, gdi.width, gdi.height];
-  SetBkColor(dc, color);
-  ExtTextOutW(dc, 0, 0, ETO_OPAQUE, (@rect), nil, 0, nil);
+  var rect := CGRectMake(0, 0, gdi.width, gdi.height);
+  CGContextSetFillColorWithColor(dc, color);
+  CGContextFillRect(dc, rect);
 end;
 
 method nk_cg_blit(dc: CGContextRef); public;
@@ -378,25 +385,26 @@ begin
   BitBlt(dc, 0, 0, gdi.width, gdi.height, gdi.memory_dc, 0, 0, SRCCOPY);
 end;
 
-method nk_gdifont_create(name: ^Byte; size: Int32): ^GdiFont; public;
-begin
-  var metric: TEXTMETRICW;
-  var font: ^GdiFont := ^GdiFont(malloc(sizeOf(GdiFont)));
-  font^ := default(GdiFont);
-  if not Boolean(font) then begin
-    exit nil;
-  end;
-  (font)^.dc := CreateCompatibleDC(0);
-  (font)^.handle := CreateFontA(size, 0, 0, 0, FW_NORMAL, 0, 0, 0, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, (DEFAULT_PITCH or FF_DONTCARE), name);
-  SelectObject((font)^.dc, (font)^.handle);
-  GetTextMetricsW((font)^.dc, (@metric));
-  (font)^.height := metric.tmHeight;
-  exit font;
-end;
+//method nk_cgfont_create(name: ^Byte; size: Int32): CGFontRef; public;
+//begin
+  //var metric: TEXTMETRICW;
+  //var font: CGFontRef := CGFontRef(malloc(sizeOf(CGFontRef)));
+  //font^ := default(CGFontRef);
+  //if not Boolean(font) then begin
+    //exit nil;
+  //end;
+  //(font)^.dc := CreateCompatibleDC(0);
+  //(font)^.handle := CreateFontA(size, 0, 0, 0, FW_NORMAL, 0, 0, 0, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, (DEFAULT_PITCH or FF_DONTCARE), name);
+  //SelectObject((font)^.dc, (font)^.handle);
+  //GetTextMetricsW((font)^.dc, (@metric));
+  //CGFontCreateWith
+  //(font)^.height := metric.tmHeight;
+  //exit font;
+//end;
 
-method nk_gdifont_get_text_width(handle: nk_handle; height: Single; text: ^Byte; len: Int32): Single; public;
+method nk_cgfont_get_text_width(handle: nk_handle; height: Single; text: ^Byte; len: Int32): Single; public;
 begin
-  var font: ^GdiFont := ^GdiFont(handle.ptr);
+  var font: CGFontRef := CGFontRef(handle.ptr);
   var size: Size;
   var wsize: Int32;
   var wstr: ^WCHAR;
@@ -414,15 +422,15 @@ begin
   exit -1.0;
 end;
 
-method nk_gdifont_del(font: ^GdiFont); public;
-begin
-  if not Boolean(font) then begin
-    exit;
-  end;
-  CFRelease((font)^.handle);
-  CFRelease((font)^.dc);
-  free(font);
-end;
+//method nk_cgfont_del(font: CGFontRef); public;
+//begin
+  //if not Boolean(font) then begin
+    //exit;
+  //end;
+  //CFRelease((font)^.handle);
+  //CFRelease((font)^.dc);
+  //free(font);
+//end;
 
 method nk_cg_clipboard_paste(usr: nk_handle; edit: ^__struct_nk_text_edit); public;
 begin
@@ -446,12 +454,12 @@ begin
   end;
 end;
 
-method nk_cg_init(gdifont: ^GdiFont; window_dc: CGContextRef; width: UInt32; height: UInt32): ^__struct_nk_context; public;
+method nk_cg_init(cgfont: CGFontRef; window_dc: CGContextRef; width: UInt32; height: UInt32): ^__struct_nk_context; public;
 begin
-  var font: ^__struct_nk_user_font := (@(gdifont)^.nk);
-  (font)^.userdata := nk_handle_ptr(gdifont);
-  (font)^.height := Single((gdifont)^.height);
-  (font)^.width := nk_gdifont_get_text_width;
+  var font: ^__struct_nk_user_font := (@(cgfont)^.nk);
+  (font)^.userdata := nk_handle_ptr(cgfont);
+  (font)^.height := Single((cgfont)^.height);
+  (font)^.width := nk_cgfont_get_text_width;
   gdi.bitmap := CreateCompatibleBitmap(window_dc, width, height);
   gdi.window_dc := window_dc;
   gdi.memory_dc := CreateCompatibleDC(window_dc);
@@ -464,14 +472,14 @@ begin
   exit (@gdi.ctx);
 end;
 
-method nk_cg_set_font(gdifont: ^GdiFont); public;
-begin
-  var font: ^__struct_nk_user_font := (@(gdifont)^.nk);
-  (font)^.userdata := nk_handle_ptr(gdifont);
-  (font)^.height := Single((gdifont)^.height);
-  (font)^.width := nk_gdifont_get_text_width;
-  nk_style_set_font((@gdi.ctx), font);
-end;
+//method nk_cg_set_font(cgfont: CGFontRef); public;
+//begin
+  //var font: ^__struct_nk_user_font := (@(cgfont)^.nk);
+  //(font)^.userdata := nk_handle_ptr(cgfont);
+  //(font)^.height := Single((cgfont)^.height);
+  //(font)^.width := nk_cgfont_get_text_width;
+  //nk_style_set_font((@gdi.ctx), font);
+//end;
 
 /*method nk_cg_handle_event(wnd: HWND; msg: UINT; wparam: WPARAM; lparam: LPARAM): Int32; public;
 begin
@@ -897,7 +905,7 @@ begin
       switch1_12:;
       begin
         var t: ^__struct_nk_command_text := ^__struct_nk_command_text(cmd);
-        nk_cg_draw_text(memory_dc, (t)^.x, (t)^.y, (t)^.w, (t)^.h, ^Byte((t)^.string), (t)^.length, ^GdiFont(((t)^.font)^.userdata.ptr), (t)^.background, (t)^.foreground);
+        nk_cg_draw_text(memory_dc, (t)^.x, (t)^.y, (t)^.w, (t)^.h, ^Byte((t)^.string), (t)^.length, CGFontRef(((t)^.font)^.userdata.ptr), (t)^.background, (t)^.foreground);
       end;
       goto _breaklabelswitch1;
       switch1_13:;
@@ -953,22 +961,21 @@ type
 //  defined: TRUE ()  1
 //  defined: LOWORD (a) ((WORD)(a))
 //  defined: HIWORD (a) ((WORD)(((DWORD)(a) >> 16) & 0xFFFF))
-GdiFont = public __struct_GdiFont;
 
 // * ==============================================================
 //  *
 //  *                          IMPLEMENTATION
 //  *
 //  * ===============================================================
-__struct_GdiFont = public record
-private
+//__struct_CGFontRef = public record
+//private
 
-  var nk: __struct_nk_user_font; public;
-  var height: Int32; public;
-  var handle: CGFontRef; public;
-  var dc: CGContextRef; public;
+  //var nk: __struct_nk_user_font; public;
+  //var height: Int32; public;
+  //var handle: CGFontRef; public;
+  //var dc: CGContextRef; public;
 
-end;
+//end;
 
 anontype_17 = public record
 private
