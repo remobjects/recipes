@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="nuklear_xlib.pas" />
     <Compile Include="nuklear_gdi.pas" />
     <Compile Include="nuklear_style.pas" />
     <Compile Include="nuklear_types.pas" />

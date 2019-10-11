@@ -1,7 +1,7 @@
 ﻿namespace Nuklear;
 
 {$IF WINDOWS}
-// Automatically converted with FOxidizer; do not modify manually!
+// These were originally covered with Foxidizer but have some adjustments for Elements.
 
 {$CCOMPATIBILITY ON}
 
@@ -9,8 +9,6 @@ uses
   rtl;
 
 {$GLOBALS ON}
-
-var gdi: anontype_17; public;
 
 method nk_create_image(image: ^__struct_nk_image; frame_buffer: ^Byte; width: Int32; height: Int32); public;
 begin
@@ -94,7 +92,7 @@ begin
   end;
 end;
 
-method nk_gdi_draw_image(x: Int16; y: Int16; w: UInt16; h: UInt16; img: __struct_nk_image; col: __struct_nk_color); public;
+method nk_gdi_draw_image( var gdi: NuklearContext; x: Int16; y: Int16; w: UInt16; h: UInt16; img: __struct_nk_image; col: __struct_nk_color); public;
 begin
   var hbm: HBITMAP := HBITMAP(img.handle.ptr);
   var hDCBits: HDC;
@@ -187,7 +185,7 @@ begin
   (tri)^.Alpha := (255 shl 8);
 end;
 
-method nk_gdi_rect_multi_color(dc: HDC; x: Int16; y: Int16; w: UInt16; h: UInt16; left: __struct_nk_color; top: __struct_nk_color; right: __struct_nk_color; bottom: __struct_nk_color); public;
+method nk_gdi_rect_multi_color(var gdi: NuklearContext;dc: HDC; x: Int16; y: Int16; w: UInt16; h: UInt16; left: __struct_nk_color; top: __struct_nk_color; right: __struct_nk_color; bottom: __struct_nk_color); public;
 begin
   var alphaFunction: BLENDFUNCTION;
   var gRect: GRADIENT_RECT;
@@ -430,7 +428,7 @@ begin
   free(wstr);
 end;
 
-method nk_gdi_clear(dc: HDC; col: __struct_nk_color); public;
+method nk_gdi_clear(var gdi: NuklearContext; dc: HDC; col: __struct_nk_color); public;
 begin
   var color: COLORREF := convert_color(col);
   var rect: RECT := [0, 0, gdi.width, gdi.height];
@@ -438,7 +436,7 @@ begin
   ExtTextOutW(dc, 0, 0, ETO_OPAQUE, (@rect), nil, 0, nil);
 end;
 
-method nk_gdi_blit(dc: HDC); public;
+method nk_gdi_blit(var gdi: NuklearContext; dc: HDC); public;
 begin
   BitBlt(dc, 0, 0, gdi.width, gdi.height, gdi.memory_dc, 0, 0, SRCCOPY);
 end;
@@ -535,7 +533,7 @@ begin
   end;
 end;
 
-method nk_gdi_init(gdifont: ^GdiFont; window_dc: HDC; width: UInt32; height: UInt32): ^__struct_nk_context; public;
+method nk_gdi_init(var gdi: NuklearContext; gdifont: ^GdiFont; window_dc: HDC; width: UInt32; height: UInt32): ^__struct_nk_context; public;
 begin
   var font: ^__struct_nk_user_font := (@(gdifont)^.nk);
   (font)^.userdata := nk_handle_ptr(gdifont);
@@ -553,7 +551,7 @@ begin
   exit (@gdi.ctx);
 end;
 
-method nk_gdi_set_font(gdifont: ^GdiFont); public;
+method nk_gdi_set_font(var gdi: NuklearContext; gdifont: ^GdiFont); public;
 begin
   var font: ^__struct_nk_user_font := (@(gdifont)^.nk);
   (font)^.userdata := nk_handle_ptr(gdifont);
@@ -562,7 +560,7 @@ begin
   nk_style_set_font((@gdi.ctx), font);
 end;
 
-method nk_gdi_handle_event(wnd: HWND; msg: UINT; wparam: WPARAM; lparam: LPARAM): Int32; public;
+method nk_gdi_handle_event(var gdi: NuklearContext; wnd: HWND; msg: UINT; wparam: WPARAM; lparam: LPARAM): Int32; public;
 begin
   begin
     case msg of
@@ -633,7 +631,7 @@ begin
     begin
       var paint: PAINTSTRUCT;
       var dc: HDC := BeginPaint(wnd, (@paint));
-      nk_gdi_blit(dc);
+      nk_gdi_blit(var gdi, dc);
       EndPaint(wnd, (@paint));
       exit 1;
     end;
@@ -828,21 +826,21 @@ begin
   exit 0;
 end;
 
-method nk_gdi_shutdown; public;
+method nk_gdi_shutdown(var gdi: NuklearContext); public;
 begin
   DeleteObject(gdi.memory_dc);
   DeleteObject(gdi.bitmap);
   nk_free((@gdi.ctx));
 end;
 
-method nk_gdi_render(clear: __struct_nk_color); public;
+method nk_gdi_render(var gdi: NuklearContext; clear: __struct_nk_color); public;
 begin
   var cmd: ^__struct_nk_command;
   var memory_dc: HDC := gdi.memory_dc;
   SelectClipRgn(memory_dc, nil);
   SelectObject(memory_dc, GetStockObject(DC_PEN));
   SelectObject(memory_dc, GetStockObject(DC_BRUSH));
-  nk_gdi_clear(memory_dc, clear);
+  nk_gdi_clear(var gdi, memory_dc, clear);
   begin
     // for loop: initializer
     cmd := nk__begin((@gdi.ctx));
@@ -998,13 +996,13 @@ begin
       switch1_14:;
       begin
         var r: ^__struct_nk_command_rect_multi_color := ^__struct_nk_command_rect_multi_color(cmd);
-        nk_gdi_rect_multi_color(memory_dc, (r)^.x, (r)^.y, (r)^.w, (r)^.h, (r)^.left, (r)^.top, (r)^.right, (r)^.bottom);
+        nk_gdi_rect_multi_color(var gdi, memory_dc, (r)^.x, (r)^.y, (r)^.w, (r)^.h, (r)^.left, (r)^.top, (r)^.right, (r)^.bottom);
       end;
       goto _breaklabelswitch1;
       switch1_15:;
       begin
         var i: ^__struct_nk_command_image := ^__struct_nk_command_image(cmd);
-        nk_gdi_draw_image((i)^.x, (i)^.y, (i)^.w, (i)^.h, (i)^.img, (i)^.col);
+        nk_gdi_draw_image(var gdi, (i)^.x, (i)^.y, (i)^.w, (i)^.h, (i)^.img, (i)^.col);
       end;
       goto _breaklabelswitch1;
       switch1_16:;
@@ -1020,7 +1018,7 @@ begin
     // for loop: break
     _breaklabel0:;
   end;
-  nk_gdi_blit(gdi.window_dc);
+  nk_gdi_blit(var gdi, gdi.window_dc);
   nk_clear((@gdi.ctx));
 end;
 
@@ -1059,7 +1057,7 @@ type
 
   end;
 
-  anontype_17 = public record
+  NuklearContext = public record
   private
 
     var bitmap: HBITMAP; public;
