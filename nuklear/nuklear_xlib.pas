@@ -1320,6 +1320,7 @@ begin
     _breaklabel0:;
   end;
   nk_clear(ctx);
+  nk_xsurf_scissor(surf, 0, 0, (surf)^.w, (surf)^.h);
   nk_xsurf_blit(screen, surf, (surf)^.w, (surf)^.h);
 end;
 
