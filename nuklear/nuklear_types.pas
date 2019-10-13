@@ -1,6 +1,5 @@
 ﻿namespace Nuklear;
 
-interface
 type
   __struct_nk_draw_vertex_layout_element = public Byte;
   __struct_nk_user_font_glyph = public record
@@ -13,6 +12,14 @@ type
   size_t = public IntPtr;
   wchar_t = public UInt16;
 
-implementation
+  method ceilf(f: Single): Single;
+  begin
+    exit Math.Ceiling(f);
+  end;
+
+  method perror(s: ^AnsiChar);
+  begin
+    writeLn('Error: '+String.FromPAnsiChars(s));
+  end;
 
 end.
