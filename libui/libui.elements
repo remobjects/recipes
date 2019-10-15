@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectGuid>{BC12454D-423E-4A10-BCF1-C549DA8D52F4}</ProjectGuid>
+    <OutputType>Import</OutputType>
+    <AssemblyName>libui</AssemblyName>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <Mode>Island</Mode>
+    <RootNamespace>libui</RootNamespace>
+    <ImportSearchPaths>.</ImportSearchPaths>
+    <ImportCodeGen>Oxygene</ImportCodeGen>
+    <KnownConditionalDefines>NEW_DEFINE</KnownConditionalDefines>
+    <ConditionalDefines>LONG_PTR=intptr_t</ConditionalDefines>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>.\Bin\Debug</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>.\Bin\Release</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Island.Windows' ">
+    <Mode>Island</Mode>
+    <SubMode>Windows</SubMode>
+    <Architecture>i386;x86_64</Architecture>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Island.Linux' ">
+    <Mode>Island</Mode>
+    <SubMode>Linux</SubMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Island.Darwin.macOS' ">
+    <Mode>Island</Mode>
+    <SubMode>Darwin</SubMode>
+    <SDK>macOS</SDK>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="#" />
+    <ImportFile Include="ui.h"/>
+    <ImportIndirectFile Include="ui_windows.h">
+    	<Target>Island.Windows</Target>
+    </ImportIndirectFile>
+    <ImportIndirectFile Include="ui_unix.h">
+    	<Target>Island.Linux</Target>
+    </ImportIndirectFile>
+    <ImportIndirectFile Include="ui_darwin.h">
+    	<Target>Island.Darwin.macOS</Target>
+    </ImportIndirectFile>
+    <SymbolMapping Include="libui.dll">
+        <SymbolNames>*</SymbolNames>
+    	<Target>Island.Windows</Target>
+    </SymbolMapping>
+    <SymbolMapping Include="libui.so.0">
+        <SymbolNames>*</SymbolNames>
+    	<Target>Island.Linux</Target>
+    </SymbolMapping>
+    <SymbolMapping Include="libui.A.dylib">
+        <SymbolNames>*</SymbolNames>
+    	<Target>Island.Darwin.macOS</Target>
+    </SymbolMapping>
+  </ItemGroup>
+  <ItemGroup></ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\RemObjects Software\Elements\RemObjects.Elements.targets" />
+</Project>
