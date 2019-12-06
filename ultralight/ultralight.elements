@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectGuid></ProjectGuid>
+    <OutputType>Import</OutputType>
+    <AssemblyName>Ultralight</AssemblyName>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <Mode>Island</Mode>
+    <RootNamespace>Ultralight</RootNamespace>
+    <ImportSearchPaths>.;include</ImportSearchPaths>
+    <ImportCodeGen>Oxygene</ImportCodeGen>
+    <Architecture>all</Architecture>
+    <ConditionalDefines>LONG_PTR=intptr_t;TARGET_OS_IPHONE=0</ConditionalDefines>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>.\Bin\Debug</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>.\Bin\Release</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Island.Windows' ">
+    <Mode>Island</Mode>
+    <SubMode>Windows</SubMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Target)' == 'Island.Linux' ">
+    <Mode>Island</Mode>
+    <SubMode>Linux</SubMode>
+    <Architecture>x86_64</Architecture>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Target)' == 'Island.Darwin.macOS' ">
+    <Mode>Island</Mode>
+    <SubMode>Darwin</SubMode>
+    <SDK>macOS</SDK>
+  </PropertyGroup>
+  <ItemGroup>
+     <ImportFile Include="JavaScriptCore\JavaScript.h"/>
+     <ImportFile Include="AppCore\CAPI.h"/>
+     <ImportFile Include="Ultralight\CAPI.h"/>
+     <Reference Include="rtl">
+        <Target>Island.Darwin</Target>
+     </Reference>
+     <Reference Include="Foundation">
+        <Target>Island.Darwin</Target>
+     </Reference>
+     <Reference Include="AppKit">
+     <Target>Island.Darwin</Target>
+     </Reference>
+
+
+    <SymbolMapping Include="WebCore.dll">
+        <SymbolNames>FT*;JS*;WTF*</SymbolNames>
+        <Target>Island.Windows</Target>
+    </SymbolMapping>
+    <SymbolMapping Include="AppCore.dll">
+        <SymbolNames>ulViewCreateInspectorView;ulConfigSetPageCacheSize;ulConfigSetMemoryCacheSize;ulConfigSetAnimationTimerDelay;ulCreateSettings;ulDestroySettings;ulAppGetMainMonitor;ulAppGetRenderer;ulAppGetWindow;ulAppIsRunning;ulAppQuit;ulAppRun;ulAppSetUpdateCallback;ulAppSetWindow;ulCreateApp;ulCreateOverlay;ulCreateWindow;ulDestroyApp;ulDestroyOverlay;ulDestroyWindow;ulMonitorGetHeight;ulMonitorGetScale;ulMonitorGetWidth;ulOverlayFocus;ulOverlayGetHeight;ulOverlayGetView;ulOverlayGetWidth;ulOverlayGetX;ulOverlayGetY;ulOverlayHasFocus;ulOverlayHide;ulOverlayIsHidden;ulOverlayMoveTo;ulOverlayResize;ulOverlayShow;ulOverlayUnfocus;ulWindowClose;ulWindowDeviceToPixel;ulWindowGetHeight;ulWindowGetScale;ulWindowGetWidth;ulWindowIsFullscreen;ulWindowPixelsToDevice;ulWindowSetCloseCallback;ulWindowSetCursor;ulWindowSetResizeCallback;ulWindowSetTitle</SymbolNames>
+        <Target>Island.Windows</Target>
+    </SymbolMapping>
+    <SymbolMapping Include="Ultralight.dll">
+        <SymbolNames>ulBitmapErase;ulBitmapGetBpp;ulBitmapGetFormat;ulBitmapGetHeight;ulBitmapGetRowBytes;ulBitmapGetSize;ulBitmapGetWidth;ulBitmapIsEmpty;ulBitmapLockPixels;ulBitmapOwnsPixels;ulBitmapRawPixels;ulBitmapUnlockPixels;ulBitmapWritePNG;ulConfigSetDeviceScaleHint;ulConfigSetEnableImages;ulConfigSetEnableJavaScript;ulConfigSetFontFamilyFixed;ulConfigSetFontFamilySansSerif;ulConfigSetFontFamilySerif;ulConfigSetFontFamilyStandard;ulConfigSetUseBGRAForOffscreenRendering;ulConfigSetUserAgent;ulConfigSetUserStylesheet;ulCreateBitmap;ulCreateBitmapFromCopy;ulCreateBitmapFromPixels;ulCreateConfig;ulCreateEmptyBitmap;ulCreateKeyEvent;ulCreateKeyEventWindows;ulCreateMouseEvent;ulCreateRenderer;ulCreateScrollEvent;ulCreateString;ulCreateStringUTF16;ulCreateStringUTF8;ulCreateView;ulDestroyBitmap;ulDestroyConfig;ulDestroyKeyEvent;ulDestroyMouseEvent;ulDestroyRenderer;ulDestroyScrollEvent;ulDestroyString;ulDestroyView;ulRender;ulStringGetData;ulStringGetLength;ulStringIsEmpty;ulUpdate;ulViewCanGoBack;ulViewCanGoForward;ulViewEvaluateScript;ulViewFireKeyEvent;ulViewFireMouseEvent;ulViewFireScrollEvent;ulViewGetBitmap;ulViewGetJSContext;ulViewGetNeedsPaint;ulViewGetTitle;ulViewGetURL;ulViewGoBack;ulViewGoForward;ulViewGoToHistoryOffset;ulViewIsBitmapDirty;ulViewIsLoading;ulViewLoadHTML;ulViewLoadURL;ulViewReload;ulViewResize;ulViewSetAddConsoleMessageCallback;ulViewSetBeginLoadingCallback;ulViewSetChangeCursorCallback;ulViewSetChangeTitleCallback;ulViewSetChangeTooltipCallback;ulViewSetChangeURLCallback;ulViewSetDOMReadyCallback;ulViewSetFinishLoadingCallback;ulViewSetNeedsPaint;ulViewSetUpdateHistoryCallback;ulViewStop</SymbolNames>
+        <Target>Island.Windows</Target>
+    </SymbolMapping>
+    
+    
+    <SymbolMapping Include="libWebCore.so">
+        <SymbolNames>FT*;JS*;WTF*</SymbolNames>
+        <Target>Island.Linux</Target>
+    </SymbolMapping>
+    <SymbolMapping Include="libAppCore.so">
+        <SymbolNames>ulViewCreateInspectorView;ulConfigSetPageCacheSize;ulConfigSetMemoryCacheSize;ulConfigSetAnimationTimerDelay;ulCreateSettings;ulDestroySettings;ulAppGetMainMonitor;ulAppGetRenderer;ulAppGetWindow;ulAppIsRunning;ulAppQuit;ulAppRun;ulAppSetUpdateCallback;ulAppSetWindow;ulCreateApp;ulCreateOverlay;ulCreateWindow;ulDestroyApp;ulDestroyOverlay;ulDestroyWindow;ulMonitorGetHeight;ulMonitorGetScale;ulMonitorGetWidth;ulOverlayFocus;ulOverlayGetHeight;ulOverlayGetView;ulOverlayGetWidth;ulOverlayGetX;ulOverlayGetY;ulOverlayHasFocus;ulOverlayHide;ulOverlayIsHidden;ulOverlayMoveTo;ulOverlayResize;ulOverlayShow;ulOverlayUnfocus;ulWindowClose;ulWindowDeviceToPixel;ulWindowGetHeight;ulWindowGetScale;ulWindowGetWidth;ulWindowIsFullscreen;ulWindowPixelsToDevice;ulWindowSetCloseCallback;ulWindowSetCursor;ulWindowSetResizeCallback;ulWindowSetTitle</SymbolNames>
+        <Target>Island.Linux</Target>
+    </SymbolMapping>
+    <SymbolMapping Include="libUltralight.so">
+        <SymbolNames>ulBitmapErase;ulBitmapGetBpp;ulBitmapGetFormat;ulBitmapGetHeight;ulBitmapGetRowBytes;ulBitmapGetSize;ulBitmapGetWidth;ulBitmapIsEmpty;ulBitmapLockPixels;ulBitmapOwnsPixels;ulBitmapRawPixels;ulBitmapUnlockPixels;ulBitmapWritePNG;ulConfigSetDeviceScaleHint;ulConfigSetEnableImages;ulConfigSetEnableJavaScript;ulConfigSetFontFamilyFixed;ulConfigSetFontFamilySansSerif;ulConfigSetFontFamilySerif;ulConfigSetFontFamilyStandard;ulConfigSetUseBGRAForOffscreenRendering;ulConfigSetUserAgent;ulConfigSetUserStylesheet;ulCreateBitmap;ulCreateBitmapFromCopy;ulCreateBitmapFromPixels;ulCreateConfig;ulCreateEmptyBitmap;ulCreateKeyEvent;ulCreateKeyEventWindows;ulCreateMouseEvent;ulCreateRenderer;ulCreateScrollEvent;ulCreateString;ulCreateStringUTF16;ulCreateStringUTF8;ulCreateView;ulDestroyBitmap;ulDestroyConfig;ulDestroyKeyEvent;ulDestroyMouseEvent;ulDestroyRenderer;ulDestroyScrollEvent;ulDestroyString;ulDestroyView;ulRender;ulStringGetData;ulStringGetLength;ulStringIsEmpty;ulUpdate;ulViewCanGoBack;ulViewCanGoForward;ulViewEvaluateScript;ulViewFireKeyEvent;ulViewFireMouseEvent;ulViewFireScrollEvent;ulViewGetBitmap;ulViewGetJSContext;ulViewGetNeedsPaint;ulViewGetTitle;ulViewGetURL;ulViewGoBack;ulViewGoForward;ulViewGoToHistoryOffset;ulViewIsBitmapDirty;ulViewIsLoading;ulViewLoadHTML;ulViewLoadURL;ulViewReload;ulViewResize;ulViewSetAddConsoleMessageCallback;ulViewSetBeginLoadingCallback;ulViewSetChangeCursorCallback;ulViewSetChangeTitleCallback;ulViewSetChangeTooltipCallback;ulViewSetChangeURLCallback;ulViewSetDOMReadyCallback;ulViewSetFinishLoadingCallback;ulViewSetNeedsPaint;ulViewSetUpdateHistoryCallback;ulViewStop</SymbolNames>
+        <Target>Island.Linux</Target>
+    </SymbolMapping>
+    
+    
+    <SymbolMapping Include="libWebCore.dylib">
+        <SymbolNames>FT*;JS*;WTF*</SymbolNames>
+        <Target>Island.Darwin</Target>
+    </SymbolMapping>
+    <SymbolMapping Include="libAppCore.dylib">
+        <SymbolNames>ulViewCreateInspectorView;ulConfigSetPageCacheSize;ulConfigSetMemoryCacheSize;ulConfigSetAnimationTimerDelay;ulCreateSettings;ulDestroySettings;ulAppGetMainMonitor;ulAppGetRenderer;ulAppGetWindow;ulAppIsRunning;ulAppQuit;ulAppRun;ulAppSetUpdateCallback;ulAppSetWindow;ulCreateApp;ulCreateOverlay;ulCreateWindow;ulDestroyApp;ulDestroyOverlay;ulDestroyWindow;ulMonitorGetHeight;ulMonitorGetScale;ulMonitorGetWidth;ulOverlayFocus;ulOverlayGetHeight;ulOverlayGetView;ulOverlayGetWidth;ulOverlayGetX;ulOverlayGetY;ulOverlayHasFocus;ulOverlayHide;ulOverlayIsHidden;ulOverlayMoveTo;ulOverlayResize;ulOverlayShow;ulOverlayUnfocus;ulWindowClose;ulWindowDeviceToPixel;ulWindowGetHeight;ulWindowGetScale;ulWindowGetWidth;ulWindowIsFullscreen;ulWindowPixelsToDevice;ulWindowSetCloseCallback;ulWindowSetCursor;ulWindowSetResizeCallback;ulWindowSetTitle</SymbolNames>
+        <Target>Island.Darwin</Target>
+    </SymbolMapping>
+    <SymbolMapping Include="libUltralight.dylib">
+        <SymbolNames>ulBitmapErase;ulBitmapGetBpp;ulBitmapGetFormat;ulBitmapGetHeight;ulBitmapGetRowBytes;ulBitmapGetSize;ulBitmapGetWidth;ulBitmapIsEmpty;ulBitmapLockPixels;ulBitmapOwnsPixels;ulBitmapRawPixels;ulBitmapUnlockPixels;ulBitmapWritePNG;ulConfigSetDeviceScaleHint;ulConfigSetEnableImages;ulConfigSetEnableJavaScript;ulConfigSetFontFamilyFixed;ulConfigSetFontFamilySansSerif;ulConfigSetFontFamilySerif;ulConfigSetFontFamilyStandard;ulConfigSetUseBGRAForOffscreenRendering;ulConfigSetUserAgent;ulConfigSetUserStylesheet;ulCreateBitmap;ulCreateBitmapFromCopy;ulCreateBitmapFromPixels;ulCreateConfig;ulCreateEmptyBitmap;ulCreateKeyEvent;ulCreateKeyEventWindows;ulCreateMouseEvent;ulCreateRenderer;ulCreateScrollEvent;ulCreateString;ulCreateStringUTF16;ulCreateStringUTF8;ulCreateView;ulDestroyBitmap;ulDestroyConfig;ulDestroyKeyEvent;ulDestroyMouseEvent;ulDestroyRenderer;ulDestroyScrollEvent;ulDestroyString;ulDestroyView;ulRender;ulStringGetData;ulStringGetLength;ulStringIsEmpty;ulUpdate;ulViewCanGoBack;ulViewCanGoForward;ulViewEvaluateScript;ulViewFireKeyEvent;ulViewFireMouseEvent;ulViewFireScrollEvent;ulViewGetBitmap;ulViewGetJSContext;ulViewGetNeedsPaint;ulViewGetTitle;ulViewGetURL;ulViewGoBack;ulViewGoForward;ulViewGoToHistoryOffset;ulViewIsBitmapDirty;ulViewIsLoading;ulViewLoadHTML;ulViewLoadURL;ulViewReload;ulViewResize;ulViewSetAddConsoleMessageCallback;ulViewSetBeginLoadingCallback;ulViewSetChangeCursorCallback;ulViewSetChangeTitleCallback;ulViewSetChangeTooltipCallback;ulViewSetChangeURLCallback;ulViewSetDOMReadyCallback;ulViewSetFinishLoadingCallback;ulViewSetNeedsPaint;ulViewSetUpdateHistoryCallback;ulViewStop</SymbolNames>
+        <Target>Island.Darwin</Target>
+    </SymbolMapping>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\RemObjects Software\Elements\RemObjects.Elements.targets" />
+</Project>
