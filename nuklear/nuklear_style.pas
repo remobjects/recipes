@@ -7,7 +7,7 @@ type
 method set_style(ctx: ^__struct_nk_context; theme: Theme); public;
 begin
   var table: array[0..NK_COLOR_COUNT-1]of __struct_nk_color;
-  if theme = Theme.THEME_WHITE then begin
+  if theme = theme.THEME_WHITE then begin
     table[NK_COLOR_TEXT] := nk_rgba(70, 70, 70, 255);
     table[NK_COLOR_WINDOW] := nk_rgba(175, 175, 175, 255);
     table[NK_COLOR_HEADER] := nk_rgba(175, 175, 175, 255);
@@ -39,7 +39,7 @@ begin
     nk_style_from_table(ctx, table);
   end
   else begin
-    if theme = Theme.THEME_RED then begin
+    if theme = theme.THEME_RED then begin
       table[NK_COLOR_TEXT] := nk_rgba(190, 190, 190, 255);
       table[NK_COLOR_WINDOW] := nk_rgba(30, 33, 40, 215);
       table[NK_COLOR_HEADER] := nk_rgba(181, 45, 69, 220);
@@ -71,7 +71,7 @@ begin
       nk_style_from_table(ctx, table);
     end
     else begin
-      if theme = Theme.THEME_BLUE then begin
+      if theme = theme.THEME_BLUE then begin
         table[NK_COLOR_TEXT] := nk_rgba(20, 20, 20, 255);
         table[NK_COLOR_WINDOW] := nk_rgba(202, 212, 214, 215);
         table[NK_COLOR_HEADER] := nk_rgba(137, 182, 224, 220);
@@ -103,7 +103,7 @@ begin
         nk_style_from_table(ctx, table);
       end
       else begin
-        if theme = Theme.THEME_DARK then begin
+        if theme = theme.THEME_DARK then begin
           table[NK_COLOR_TEXT] := nk_rgba(210, 210, 210, 255);
           table[NK_COLOR_WINDOW] := nk_rgba(57, 67, 71, 215);
           table[NK_COLOR_HEADER] := nk_rgba(51, 51, 56, 220);
